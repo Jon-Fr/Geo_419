@@ -1,11 +1,10 @@
-
-import tkinter
+import tkinter as tk
 import urllib.request
 from tkinter import filedialog
 import os.path
 import zipfile
 import rasterio
-import numpy
+import numpy as np
 
 from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg, NavigationToolbar2Tk)
@@ -31,21 +30,66 @@ def calculateLog(): # logarithmisch skalieren
     if not os.path.exists("S1B__IW___A_20180828T171447_VV_NR_Orb_Cal_ML_TF_TC_log.tif"):
         dataset = rasterio.open("S1B__IW___A_20180828T171447_VV_NR_Orb_Cal_ML_TF_TC.tif")
         data_array = dataset.read(1)
-        data_array_log = 10*numpy.log10(data_array, out=numpy.zeros_like(data_array), where=(data_array != 0))
+        data_array_log = 10*np.log10(data_array, out=np.zeros_like(data_array), where=(data_array != 0))
         new_dataset = rasterio.open("S1B__IW___A_20180828T171447_VV_NR_Orb_Cal_ML_TF_TC_log.tif", "w", driver="GTiff",
                                     height=data_array_log.shape[0], width=data_array_log.shape[1], count=1,
                                     dtype=data_array_log.dtype, crs="EPSG:32632", transform=dataset.transform)
         new_dataset.write(data_array_log, 1)
         new_dataset.close()
 
+def histogramEqualization():
+    
+    # open GeoTiff
+    dataset_log = rasterio.open("S1B__IW___A_20180828T171447_VV_NR_Orb_Cal_ML_TF_TC_log.tif")
+    # covert data to np array
+    dal = dataset_log.read(1)
+    # flatt the array
+    dal_flatt = dal.flatten()
+    # make sure that all pixel values are >= 0 or the normalization will get messed up
+    dal_min = np.nanmin(dal_flatt)
+    if dal_min < 0:
+        dal_flatt = dal_flatt - dal_min
+    # frequency count of each pixel
+    not_nan_dal = dal_flatt >= dal_min
+    fre = (np.unique(dal_flatt[not_nan_dal], return_counts=True))
+    dal_sum = fre[1] * fre[0]
+    # cumulative sum
+    c_sum = np.cumsum(dal_sum)
+    # normalization of the pixel values
+    c_sum_min = c_sum.min()
+    c_sum_max = c_sum.max()
+    norm = (c_sum - c_sum_min) * 255
+    n = c_sum_max - c_sum_min
+    uniform_norm = norm / n
+    # create array with the new pixel values at the right position
+    dal_eq = np.zeros(dal_flatt.shape[0])
+    dal_list = fre[0].tolist()
+    dal_dict = {}   # the utilization of a dictionary greatly increase the performance
+    for i in range(0, len(dal_list)):
+        dal_dict[dal_list[i]] = uniform_norm[i]
+    for i in range(dal_flatt.shape[0]):
+        if dal_flatt[i] >= dal_min:
+            dal_eq[i] = dal_dict[dal_flatt[i]]
+        else:
+            dal_eq[i] = np.nan
+    # reshaping the flattened matrix to its original shape
+    dal_eq = np.reshape(a=dal_eq, newshape=dal.shape)
+    # create a new GeoTIFF for visualisation
+    vis_dataset = rasterio.open("Only_for_visualisation.tif", "w", driver="GTiff",
+                                height=dal_eq.shape[0], width=dal_eq.shape[1], count=1,
+                                dtype=dal_eq.dtype, crs="EPSG:32632", transform=dataset_log.transform,
+                                nodata=np.nan)
+    vis_dataset.write(dal_eq, 1)
+    vis_dataset.close()
+
 
 def remoteSensing419(fileF = ''):
     print(fileF)
-    window = Tk()
+    window = tk.Tk()
     # erstellt das Hauptfenster
     # Hauptfenster konfiguration
     window.configure(bg = 'white')
-    window.wm_attributes('-topmost', 1)
+    window.wm_attributes('-topmost', 1) #Neues Fenster (FileDialog) erscheint über allen anderen
     window.withdraw() # versteckt Hauptfenster vorerst
     fileSet = 0 # 1: Pfad erfolgreich gesetzt 0: Pfad nicht gesetzt
     if os.path.isdir(fileF):
@@ -61,31 +105,47 @@ def remoteSensing419(fileF = ''):
                 os.chdir(fileF)
                 fileSet = 1
             except: # Falls kein Pfad ausgewählt wurde (z.B. wenn FileDialog geschlossen wird)
-                error = Label(window, text = "Abreitsverzeichnis konnte nicht gesetzt werden")
+                error = tk.Label(window, text = "Abreitsverzeichnis konnte nicht gesetzt werden")
                 error.pack()
+                window.title("Fehler")
                 window.deiconify()
     if fileSet == 1: # Nur wenn Pfad gesetzt wurde
         downloadZip()
         extractZip()
         calculateLog()
-        window.deiconify()
+        if not os.path.exists("Only_for_visualisation.tif"):
+            explanationText = """Zur besseren Visualiserung wird eine Histogramm-Angleichung empfohlen. Je nach Rechenleistung kann dies jedoch etwas Zet in Anspruch nehmen.
+            Möchten Sie die Histogramm-Angleichung durchführen """
+            decisionBox = tk.messagebox.askquestion('Histogramm-Angleichung',explanationText)
+            if decisionBox == 'yes':
+                histogramEqualization()
         
+        window.deiconify()
+        window.wm_attributes('-topmost', 0) #Einstellung zurücksetzen auf 0
+        #Schieberegler erscheint ansonsten unter dem Bild versteckt
+        
+        
+        window.title("Rasterdatei")
         # Erstellen des Ergebnis-Plots mit allen möglichen Einstellungen
         
-        resultData = rasterio.open("S1B__IW___A_20180828T171447_VV_NR_Orb_Cal_ML_TF_TC_log.tif")
+        
+        if  os.path.exists("Only_for_visualisation.tif"):
+            resultData = rasterio.open("Only_for_visualisation.tif")
+        else:
+            resultData = rasterio.open("S1B__IW___A_20180828T171447_VV_NR_Orb_Cal_ML_TF_TC_log.tif")
         fig = Figure(figsize=(5, 4), dpi=100)
 
         canvas1 = FigureCanvasTkAgg(fig, master=window)
         canvas1.draw()
         toolbar = NavigationToolbar2Tk(canvas1,window)
         toolbar.update()
-        toolbar.pack(side=tkinter.TOP, fill=tkinter.X, padx=8)
-        canvas1.get_tk_widget().pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1, padx=10, pady=5)
-        canvas1._tkcanvas.pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1, padx=10, pady=5)
+        toolbar.pack(side=tk.TOP, fill=tk.X, padx=8)
+        canvas1.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1, padx=10, pady=5)
+        canvas1._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1, padx=10, pady=5)
         ax = fig.add_subplot(111)
         fig.subplots_adjust(bottom=0, right=1, top=1, left=0, wspace=0, hspace=0)
         
-        resultData = rasterio.open("S1B__IW___A_20180828T171447_VV_NR_Orb_Cal_ML_TF_TC_log.tif")
+        
         show(resultData, ax=ax, cmap='gist_gray')
         plt.close()
         ax.set(title="",xticks=[], yticks=[])
@@ -94,10 +154,11 @@ def remoteSensing419(fileF = ''):
         ax.spines["left"].set_visible(False)
         ax.spines["bottom"].set_visible(False)
         canvas1.draw()
+        resultData.close()
         
-        
-        
+     # File schließen    
     window.mainloop()
+    
     # Hauptschleife (wird hier nur einmal durchlaufen)
     # Funktion wird dadurch erst beendet, wenn Programm beendet wird (Teil der Aufgabenstellung)
 
