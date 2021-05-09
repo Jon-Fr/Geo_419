@@ -8,7 +8,7 @@ import numpy as np
 
 from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg, NavigationToolbar2Tk)
-from matplotlib.figure import Figure
+#from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 from rasterio.plot import show
 
@@ -127,14 +127,19 @@ def remoteSensing419(fileF = ''):
         
         window.title("Rasterdatei")
         # Erstellen des Ergebnis-Plots mit allen möglichen Einstellungen
-        
+        #window.geometry("1000x1000")
         
         if  os.path.exists("Only_for_visualisation.tif"):
             resultData = rasterio.open("Only_for_visualisation.tif")
         else:
             resultData = rasterio.open("S1B__IW___A_20180828T171447_VV_NR_Orb_Cal_ML_TF_TC_log.tif")
-        fig = Figure(figsize=(5, 4), dpi=100)
-
+        resultDataArray = resultData.read(1)
+        
+        
+        #fig = Figure(figsize=(5, 4), dpi=100)
+        fig = plt.figure(figsize=(5, 4), dpi=100)
+        
+        
         canvas1 = FigureCanvasTkAgg(fig, master=window)
         canvas1.draw()
         toolbar = NavigationToolbar2Tk(canvas1,window)
@@ -144,16 +149,32 @@ def remoteSensing419(fileF = ''):
         canvas1._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1, padx=10, pady=5)
         ax = fig.add_subplot(111)
         fig.subplots_adjust(bottom=0, right=1, top=1, left=0, wspace=0, hspace=0)
+        show(resultData, ax=ax, cmap='plasma')
+        
+        plt.rc('font', size=16) # Festlegung der Schriftgröße der Legende
+        # Legende erstellen
+        plt.imshow(resultDataArray, cmap="plasma")
+        cbar = plt.colorbar(orientation="vertical", ticks=[0, 255])
+        cbar.ax.set_yticklabels(["niedrig", "hoch"])
+        cbar.set_label("Rückstreuungsintensität", labelpad=-30)
+        plt.rc('font', size=16) # Festlegung der Schriftgröße der Achsen und des Titels
+        plt.title("", fontsize=12, fontweight="bold")
+        plt.xlabel("Rechtswert [m]", labelpad=10)
+        plt.ylabel("Hochwert [m]", labelpad=10)
         
         
-        show(resultData, ax=ax, cmap='gist_gray')
-        plt.close()
+        
+        
+        
         ax.set(title="",xticks=[], yticks=[])
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
         ax.spines["left"].set_visible(False)
         ax.spines["bottom"].set_visible(False)
         canvas1.draw()
+        
+        
+        plt.close()
         resultData.close()
         
      # File schließen    
