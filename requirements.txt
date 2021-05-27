@@ -1,0 +1,4 @@
+tkinter == 8.6.10
+rasterio == 1.10
+numpy == 1.19.2
+matplotlib == 3.3.4
