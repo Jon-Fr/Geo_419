@@ -28,7 +28,7 @@ setup(name="Geo_419",
       classifiers=[
           "Programming Language :: Python"
           "Operating System :: Microsoft :: Windows",
-          "Topic :: remote sensing",
+          "Topic :: Scientific/Engineering :: Visualization",
           "Intended Audience :: Science/Research",
       ],
       url="https://github.com/Jon-Fr/Geo_419",
