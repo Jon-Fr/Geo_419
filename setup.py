@@ -10,8 +10,6 @@ else:
     with open(os.path.join(directory, 'README.md')) as f:
         long_description = f.read()
 
-os.chdir("C:/Users/frank/Desktop/Test/Geo_419-master")
-
 if not os.path.exists("requirements.txt"):
     print("Bitte stellen Sie sicher, dass sich die Datei requirements.txt in ihrem working directory befindet.")
     sys.exit()
@@ -20,6 +18,7 @@ else:
         requires = []
         for line in req:
             requires.append(line.strip())
+            
 try:
     setup(name="Geo_419",
           packages=find_packages(),
