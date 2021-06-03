@@ -36,7 +36,7 @@ try:
               "Intended Audience :: Science/Research",
           ],
           url="https://github.com/Jon-Fr/Geo_419",
-          author="Jonathan Frank",  # Fabian Schreiter, Jonathan Frank; we do not know how to add a second author
+          author="Jonathan Frank",  # Fabian Schreiter, Jonathan Frank; Ist es möglich einen zweiten Autor hinzuzufügen 
           author_email="jonathan.frank@uni-jena.de",
           license="GPL-3",
           zip_safe=False,
