@@ -1,2 +1,2 @@
-# A short program for logarithmic scaling and visualizing of Sentinel-1 scenes.
-Geo 419
+# GEO_419
+Ein Programm zum logarithmischen skalieren und visualisieren von Sentinel-1 Szenen.
