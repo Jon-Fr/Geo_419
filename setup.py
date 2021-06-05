@@ -23,9 +23,9 @@ try:
     setup(name="Geo_419",
           packages=find_packages(),
           include_package_data=True,
-          description="A program for logarithmic scaling and visualizing of Sentinel-1 scenes.",
+          description="Ein Programm zum logarithmischen skalieren und visualisieren von Sentinel-1 Szenen.",
           version="1.2.0",
-          keywords="SAR, Histogram Equalization",
+          keywords="SAR, Histogram-Angleichung",
           python_requires="==3.7",
           setup_requires=["numpy"],
           install_requires=requires,
@@ -36,7 +36,7 @@ try:
               "Intended Audience :: Science/Research",
           ],
           url="https://github.com/Jon-Fr/Geo_419",
-          author="Jonathan Frank",  # Fabian Schreiter, Jonathan Frank; Ist es möglich einen zweiten Autor hinzuzufügen 
+          author="Jonathan Frank",  # Fabian Schreiter und Jonathan Frank; Ist es möglich einen zweiten Autor hinzuzufügen?
           author_email="jonathan.frank@uni-jena.de",
           license="GPL-3",
           zip_safe=False,
