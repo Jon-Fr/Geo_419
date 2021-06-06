@@ -14,7 +14,7 @@ from rasterio.plot import show
 
 def browseFiles():
     """
-    Öffnet die Verzeichnisauswahl, damit der Arbeits/Ausgabeverzeichnis festgelegt werden kann.
+    Öffnet die Verzeichnisauswahl, damit das Arbeits/Ausgabeverzeichnis festgelegt werden kann.
 
     Parameters
     ----------
@@ -51,9 +51,9 @@ def downloadZip(url="https://upload.uni-jena.de/data/605dfe08b61aa9.92877595/GEO
 
 def extractZip(zip="GEO419_Testdatensatz.zip"):
     """
-    Entpackt die angegebenen zip-Datei in den Arbeits/Ausgabeverzeichnis und gibt den Namen der entpackten Datei
+    Entpackt die angegebenen zip-Datei ins Arbeits/Ausgabeverzeichnis und gibt den Namen der entpackten Datei
     zurück, insofern es denn nur eine Datei ist.
-    Die Datei wird allerdings nur entpackt, wenn sich im Arbeits/Ausgabeverzeichnis keine Datei befindet, die den
+    Die zip-Datei wird allerdings nur entpackt, wenn sich im Arbeits/Ausgabeverzeichnis keine Datei befindet, die den
     gleichen Namen hat wie eine Datei innerhalb der zip Datei.
 
     Parameters
@@ -88,10 +88,11 @@ def extractZip(zip="GEO419_Testdatensatz.zip"):
 
 def calculateLog(tif="S1B__IW___A_20180828T171447_VV_NR_Orb_Cal_ML_TF_TC.tif"):
     """
-    Skaliert die Werte einer TIF-Datei logarithmisch, exportiert das Ergebnis (als TIF-Datei) in den
+    Skaliert die Werte einer TIF-Datei logarithmisch, exportiert das Ergebnis (als TIF-Datei) ins
     Arbeits/Ausgabeverzeichnis und gibt den Namen der Ergebnisdatei zurück.
     Die Funktion überprüft allerdings als erstes, ob sich im Arbeits/Ausgabeverzeichnis eine Datei mit dem gleichen
-    Namen wie die potentielle Ergebnisdatei befindet. Sollte dies der Fall sein wird keine Skalierung durchgeführt.
+    Namen wie die potentielle Ergebnisdatei befindet. Sollte dies der Fall sein, gibt die Funktion nur den Namen der
+    Datei zurück.
 
     Parameters
     ----------
@@ -127,6 +128,9 @@ def histogramEqualization(tif="S1B__IW___A_20180828T171447_VV_NR_Orb_Cal_ML_TF_T
     """
     Führt eine Histogramm-Angleichung durch, exportiert das Ergebnis (als TIF-Datei) in den Arbeits/Ausgabeverzeichnis
     und gibt den Namen der Ergebnisdatei zurück.
+    Die Funktion überprüft allerdings als erstes, ob sich im Arbeits/Ausgabeverzeichnis eine Datei mit dem gleichen
+    Namen wie die potentielle Ergebnisdatei befindet. Sollte dies der Fall sein, gibt die Funktion nur den Namen der
+    Datei zurück.
 
     Parameters
     ----------
@@ -192,8 +196,8 @@ def histogramEqualization(tif="S1B__IW___A_20180828T171447_VV_NR_Orb_Cal_ML_TF_T
 
 def remoteSensing419(fileF=''):
     """
-    Die Hauptfunktion des Programms, in der die vorher definierten Funktionen aufgerufen werden. Am Ende der Funktion
-    findet die Visualisierung des Ergebnis statt.
+    Die Hauptfunktion des Programms, innerhalb der die vorher definierten Funktionen aufgerufen werden. Am Ende der 
+    Funktion findet die Visualisierung des Ergebnis statt.
 
     Parameters
     ----------
@@ -323,9 +327,6 @@ def remoteSensing419(fileF=''):
     # File schließen
     window.mainloop()
 
-    # Hauptschleife (wird hier nur einmal durchlaufen)
-    # Funktion wird dadurch erst beendet, wenn Programm beendet wird (Teil der Aufgabenstellung)
-
-
+    
 if __name__ == '__main__':
     remoteSensing419()
