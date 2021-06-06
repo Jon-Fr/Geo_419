@@ -42,6 +42,7 @@ try:
           zip_safe=False,
           long_description=long_description,
           long_description_content_type="text/markdown")
+    
 except SystemExit:
     print("\nFehler bei ausführen des setup. Der Fehler wurde wahrscheinlich darduch Verursacht, dass rastio nicht"
           " installiert werden konnte.\nBitte führen Sie die installation von rasterio manuell durch (mehr Informationen "
