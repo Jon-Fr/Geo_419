@@ -29,20 +29,20 @@ def browseFiles():
 
 def downloadZip(url="https://upload.uni-jena.de/data/605dfe08b61aa9.92877595/GEO419_Testdatensatz.zip"):
     """
-    Downloadet eine zip-Datei von der angegebenen URL, legt sie im Arbeits/Ausgabeverzeichnis ab und gibt den Namen
-    der zip-Datei zurück.
-    Der download wird nur ausgeführt, wenn im Arbeits/Ausgabeverzeichnis noch keine zip-Datei mit dem gleichen Namen
+    Downloadet eine ZIP-Datei von der angegebenen URL, legt sie im Arbeits/Ausgabeverzeichnis ab und gibt den Namen
+    der ZIP-Datei zurück.
+    Der download wird nur ausgeführt, wenn im Arbeits/Ausgabeverzeichnis noch keine ZIP-Datei mit dem gleichen Namen
     existiert.
 
     Parameters
     ----------
     url: str
-        die URL einer zip-Datei.
+        die URL einer ZIP-Datei.
 
     Returns
     -------
     str
-        der Name der zip-Datei (inklusive Dateiendung)
+        der Name der ZIP-Datei (inklusive Dateiendung)
     """
     name = url[url.rindex("/")+1:len(url)]
     if not os.path.exists(name):
@@ -53,13 +53,13 @@ def extractZip(zip="GEO419_Testdatensatz.zip"):
     """
     Entpackt die angegebenen zip-Datei ins Arbeits/Ausgabeverzeichnis und gibt den Namen der entpackten Datei
     zurück, insofern es denn nur eine Datei ist.
-    Die zip-Datei wird allerdings nur entpackt, wenn sich im Arbeits/Ausgabeverzeichnis keine Datei befindet, die den
-    gleichen Namen hat wie eine Datei innerhalb der zip Datei.
+    Die ZIP-Datei wird allerdings nur entpackt, wenn sich im Arbeits/Ausgabeverzeichnis keine Datei befindet, die den
+    gleichen Namen hat wie eine Datei innerhalb der ZIP Datei.
 
     Parameters
     ----------
     zip: str
-        Pfad zu einer zip-Datei bzw. der Name der zip-Datei inkluisve .zip, wenn sich die Datei im
+        Pfad zu einer ZIP-Datei bzw. der Name der ZIP-Datei inkluisve .zip, wenn sich die Datei im
         Arbeits/Ausgabeverzeichnis befindet.
 
     Returns
@@ -88,7 +88,7 @@ def extractZip(zip="GEO419_Testdatensatz.zip"):
 
 def calculateLog(tif="S1B__IW___A_20180828T171447_VV_NR_Orb_Cal_ML_TF_TC.tif"):
     """
-    Skaliert die Werte einer TIF-Datei logarithmisch, exportiert das Ergebnis (als TIF-Datei) ins
+    Skaliert die Werte eines GeoTIFF logarithmisch, exportiert das Ergebnis (als GeoTIFF) ins
     Arbeits/Ausgabeverzeichnis und gibt den Namen der Ergebnisdatei zurück.
     Die Funktion überprüft allerdings als erstes, ob sich im Arbeits/Ausgabeverzeichnis eine Datei mit dem gleichen
     Namen wie die potentielle Ergebnisdatei befindet. Sollte dies der Fall sein, gibt die Funktion nur den Namen der
@@ -97,7 +97,7 @@ def calculateLog(tif="S1B__IW___A_20180828T171447_VV_NR_Orb_Cal_ML_TF_TC.tif"):
     Parameters
     ----------
     tif: str
-        Pfad zu einer TIF-Datei bzw. der Name der TIF-Datei inkluisve .tif, wenn sich die Datei im
+        Pfad zu einem GeoTIFF bzw. der Name des GeoTIFF inkluisve Dateiendung, wenn sich die Datei im
         Arbeits/Ausgabeverzeichnis befindet.
 
     Returns
@@ -126,7 +126,7 @@ def calculateLog(tif="S1B__IW___A_20180828T171447_VV_NR_Orb_Cal_ML_TF_TC.tif"):
 
 def histogramEqualization(tif="S1B__IW___A_20180828T171447_VV_NR_Orb_Cal_ML_TF_TC_log.tif"):
     """
-    Führt eine Histogramm-Angleichung durch, exportiert das Ergebnis (als TIF-Datei) in den Arbeits/Ausgabeverzeichnis
+    Führt bei einem GeoTIFF eine Histogramm-Angleichung durch, exportiert das Ergebnis (als GeoTIFF) in das Arbeits/Ausgabeverzeichnis
     und gibt den Namen der Ergebnisdatei zurück.
     Die Funktion überprüft allerdings als erstes, ob sich im Arbeits/Ausgabeverzeichnis eine Datei mit dem gleichen
     Namen wie die potentielle Ergebnisdatei befindet. Sollte dies der Fall sein, gibt die Funktion nur den Namen der
@@ -135,7 +135,7 @@ def histogramEqualization(tif="S1B__IW___A_20180828T171447_VV_NR_Orb_Cal_ML_TF_T
     Parameters
     ----------
     tif: str
-        Pfad zu einer TIF-Datei bzw. der Name der TIF-Datei inkluisve .tif, wenn sich die Datei im
+        Pfad zu einem GeoTIFF bzw. der Name des GeoTIFF inkluisve Dateiendung, wenn sich die Datei im
         Arbeits/Ausgabeverzeichnis befindet.
 
     Returns
