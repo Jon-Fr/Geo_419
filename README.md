@@ -3,3 +3,15 @@ Dieses Pakete wurde dazu entwicklet um einzelne Sentinel-1 Szenen zu downloaden,
 
 ## Installation
 Im Folgenden Abschnitt wird die Installation des Paketes für Microsoft Windows beschrieben.
+
+```sh
+conda install -c conda-forge rasterio
+pip install "Pfad zum Paket" --use-feature=in-tree-build
+```
+
+```sh
+pip install pipwin
+pipwin install gdal
+pipwin install rasterio
+pip install "Pfad zum Paket" --use-feature=in-tree-build
+```
