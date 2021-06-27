@@ -12,7 +12,7 @@ conda install -c conda-forge rasterio
 pip install "Pfad zum Paket" --use-feature=in-tree-build
 ```
 
-Alternativ lässt sich das Pakete auch über die eingabe folgender befehle in eine Python Terminal installieren.
+Alternativ lässt sich das Pakete auch über die Eingabe folgender befehle in eine Python Terminal installieren.
 ```sh
 pip install pipwin
 pipwin install gdal
