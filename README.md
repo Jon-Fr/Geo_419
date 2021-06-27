@@ -6,14 +6,18 @@ Im Folgenden Abschnitt wird die Installation des Paketes für Microsoft Windows 
 
 Klonen Sie zunächst dieses Repository auf Ihr lokales System. 
 
+Wenn Sie [Anaconda][1] benutzen können Sie das Paket anschließend installieren, indem Sie die beiden folgenden befehle in ein Python Terminal eingeben.
 ```sh
 conda install -c conda-forge rasterio
 pip install "Pfad zum Paket" --use-feature=in-tree-build
 ```
 
+Alternativ lässt sich das Pakete auch über die eingabe folgender befehle in eine Python Terminal installieren.
 ```sh
 pip install pipwin
 pipwin install gdal
 pipwin install rasterio
 pip install "Pfad zum Paket" --use-feature=in-tree-build
 ```
+
+[1]: https://www.anaconda.com/
