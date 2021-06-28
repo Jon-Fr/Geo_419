@@ -21,7 +21,7 @@ pip install "Pfad zum Paket" --use-feature=in-tree-build
 ```
 
 ## Dokumentation 
-Die Dokumentation der Funktionen ist unter [hier][2] zu finden.
+Die Dokumentation der Funktionen ist [hier][2] zu finden.
 
 [1]: https://www.anaconda.com/
 [2]: https://jon-fr.github.io/Geo_419_Dokumentation/Geo_419.html
