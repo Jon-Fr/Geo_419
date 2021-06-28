@@ -20,4 +20,7 @@ pipwin install rasterio
 pip install "Pfad zum Paket" --use-feature=in-tree-build
 ```
 
+## Dokumentation 
+Die Dokumentation der Funktionen ist unter https://jon-fr.github.io/Geo_419_Dokumentation/Geo_419.html zu finden.
+
 [1]: https://www.anaconda.com/
