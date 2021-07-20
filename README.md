@@ -2,8 +2,9 @@
 Dieses Pakete wurde dazu entwicklet um einzelne Sentinel-1 Szenen zu downloaden, logarithmische zu skalieren und zu visualisieren. Das Hauptskript dieses Paketes enthält zu diesem Zweck Funktionen, die das Downloaden und entpacken von ZIP-Dateien sowie das logarithmische skalieren und visualisieren von GeoTIFFs umfassen. Die Visualisierung in der Hauptfunktion ist speziell auf Radar Rückstreuintensität in gamma nought (γ0) zugeschnitten. Die übrigen Funktionen können auch für andere Daten verwendet werden.
 
 ## Installation
-Im Folgenden Abschnitt wird die Installation des Paketes für Microsoft Windows beschrieben. 
+Im Folgenden Abschnitt wird die Installation des Paketes für Microsoft Windows und Ubuntu beschrieben. 
 
+#### Microsoft Windows
 Klonen Sie zunächst dieses Repository auf Ihr lokales System. 
 
 Wenn Sie [Anaconda][1] benutzen können Sie das Paket anschließend installieren, indem Sie die beiden folgenden Befehle in ein Python Terminal eingeben.
