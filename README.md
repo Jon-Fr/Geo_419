@@ -22,7 +22,17 @@ pip install "Pfad zum Paket" --use-feature=in-tree-build
 ```
 
 #### Ubuntu 
+Klonen Sie zunächst dieses Repository auf Ihr lokales System. 
 
+Installieren Sie Tkinter (wenn nicht bereits vorhanden).
+```sh
+sudo apt-get install python3-tk
+```
+
+Installieren Sie das, indem Sie folgenden Befehl in ein Python Terminal eingeben.
+```sh
+pip install "Pfad zum Paket" --use-feature=in-tree-build
+```
 
 ## Dokumentation 
 Die Dokumentation der Funktionen ist [hier][2] zu finden.
