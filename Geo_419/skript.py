@@ -149,32 +149,24 @@ def histogramEqualization(tif="S1B__IW___A_20180828T171447_VV_NR_Orb_Cal_ML_TF_T
         explanationText = "Zur besseren Visualiserung wird eine Histogramm-Angleichung empfohlen. Je nach Rechenleistung und Dateigröße kann dies jedoch etwas Zet in Anspruch nehmen.\n\nMöchten Sie die Histogramm-Angleichung durchführen?"
         decisionBox = tk.messagebox.askquestion('Histogramm-Angleichung', explanationText)
         if decisionBox == 'yes':
-            # open GeoTiff
             dataset_log = rasterio.open(tif)
-            # covert data to np array
             dal = dataset_log.read(1)
-            # flatt the array
             dal_flatt = dal.flatten()
-            # make sure that all pixel values are >= 0 or the normalization will get messed up
             dal_min = np.nanmin(dal_flatt)
             if dal_min < 0:
                 dal_flatt = dal_flatt - dal_min
-            # frequency count of each pixel
             not_nan_dal = dal_flatt >= dal_min
             fre = (np.unique(dal_flatt[not_nan_dal], return_counts=True))
             dal_sum = fre[1] * fre[0]
-            # cumulative sum
             c_sum = np.cumsum(dal_sum)
-            # normalization of the pixel values
             c_sum_min = c_sum.min()
             c_sum_max = c_sum.max()
             norm = (c_sum - c_sum_min) * 255
             n = c_sum_max - c_sum_min
             uniform_norm = norm / n
-            # create array with the new pixel values at the right position
             dal_eq = np.zeros(dal_flatt.shape[0])
             dal_list = fre[0].tolist()
-            dal_dict = {}  # the utilization of a dictionary greatly increase the performance
+            dal_dict = {}  
             for i in range(0, len(dal_list)):
                 dal_dict[dal_list[i]] = uniform_norm[i]
             for i in range(dal_flatt.shape[0]):
@@ -182,9 +174,7 @@ def histogramEqualization(tif="S1B__IW___A_20180828T171447_VV_NR_Orb_Cal_ML_TF_T
                     dal_eq[i] = dal_dict[dal_flatt[i]]
                 else:
                     dal_eq[i] = np.nan
-            # reshaping the flattened matrix to its original shape
             dal_eq = np.reshape(a=dal_eq, newshape=dal.shape)
-            # create a new GeoTIFF for visualisation
             vis_dataset = rasterio.open(name, "w", driver="GTiff",
                                         height=dal_eq.shape[0], width=dal_eq.shape[1], count=1,
                                         dtype=dal_eq.dtype, crs="EPSG:32632", transform=dataset_log.transform,
