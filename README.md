@@ -29,7 +29,7 @@ Installieren Sie Tkinter (wenn nicht bereits vorhanden).
 sudo apt-get install python3-tk
 ```
 
-Installieren Sie das, indem Sie folgenden Befehl in ein Python Terminal eingeben.
+Anschließend können Sie das Paket installieren, indem Sie folgenden Befehl in ein Python Terminal eingeben.
 ```sh
 pip install "Pfad zum Paket" --use-feature=in-tree-build
 ```
