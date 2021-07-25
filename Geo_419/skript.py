@@ -27,7 +27,7 @@ def browseFiles():
     return filename
 
 
-def downloadZip(url="https://upload.uni-jena.de/data/605dfe08b61aa9.92877595/GEO419_Testdatensatz.zip"):
+def downloadZip(url="https://upload.uni-jena.de/data/60faad3254c462.96067488/GEO419_Testdatensatz.zip"):
     """
     Downloadet eine ZIP-Datei von der angegebenen URL, legt sie im Arbeits/Ausgabeverzeichnis ab und gibt den Namen
     der ZIP-Datei zurück.
