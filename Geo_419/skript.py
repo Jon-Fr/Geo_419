@@ -31,7 +31,7 @@ def downloadZip(url="https://upload.uni-jena.de/data/60faad3254c462.96067488/GEO
     """
     Downloadet eine ZIP-Datei von der angegebenen URL, legt sie im Arbeits/Ausgabeverzeichnis ab und gibt den Namen
     der ZIP-Datei zurück.
-    Der download wird nur ausgeführt, wenn im Arbeits/Ausgabeverzeichnis noch keine ZIP-Datei mit dem gleichen Namen
+    Der Download wird nur ausgeführt, wenn im Arbeits/Ausgabeverzeichnis noch keine ZIP-Datei mit dem gleichen Namen
     existiert.
 
     Parameters
