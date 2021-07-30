@@ -282,7 +282,7 @@ def remoteSensing419(fileF=''):
                 plt.rc('font', size=10)
                 plt.imshow(resultDataArray, cmap="Greys_r")
                 cbar = plt.colorbar(orientation="vertical")
-                cbar.set_label("Rückstreuungsintensität [10 * log$_{10}(\gamma)$]", labelpad=9)
+                cbar.set_label("Rückstreuungsintensität [10 * log$_{10}(\gamma^0)$]", labelpad=9)
                 plt.rc('font', size=12)
                 plt.title("", fontsize=12, fontweight="bold")
                 plt.xlabel("Rechtswert [m]", labelpad=10)
