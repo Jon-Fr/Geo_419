@@ -146,7 +146,7 @@ def histogramEqualization(tif="S1B__IW___A_20180828T171447_VV_NR_Orb_Cal_ML_TF_T
     temp = tif[0:tif.rindex(".")]
     name = "{}_Hist_ang.tif".format(temp)
     if not os.path.exists(name):
-        explanationText = "Zur besseren Visualiserung wird eine Histogramm-Angleichung empfohlen. Je nach Rechenleistung und Dateigröße kann dies jedoch etwas Zet in Anspruch nehmen.\n\nMöchten Sie die Histogramm-Angleichung durchführen?"
+        explanationText = "Zur besseren Visualiserung wird eine Histogramm-Angleichung empfohlen. Je nach Rechenleistung und Dateigröße kann dies jedoch etwas Zeit in Anspruch nehmen.\n\nMöchten Sie die Histogramm-Angleichung durchführen?"
         decisionBox = tk.messagebox.askquestion('Histogramm-Angleichung', explanationText)
         if decisionBox == 'yes':
             dataset_log = rasterio.open(tif)
